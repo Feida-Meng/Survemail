@@ -12,8 +12,11 @@ passport.use(
       clientSecret: keys.GoogleOauthClientSecret,
       callbackURL: '/auth/google/callback'
     },
-    accessToken => {
+    (accessToken, refreshToken, profile, done) => {
+      //after google sending back code
       console.log(accessToken);
+      console.log(refreshToken);
+      console.log(profile);
     }
   )
 );
@@ -25,6 +28,8 @@ app.get(
     // ask google to give permission to share profile and email
   })
 );
+
+app.get('/auth/google/callback', passport.authenticate('google'));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);
