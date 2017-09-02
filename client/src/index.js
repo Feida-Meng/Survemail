@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
 import App from './components/App';
+import reducers from './reducers';
 
-const store = createStore(() => [], {}, applyMiddleware()); //second arguement is for setting up initial state
+const store = createStore(reducers, {}, applyMiddleware()); //second arguement is for setting up initial state
 
 ReactDOM.render(
   <Provider store={store}>
