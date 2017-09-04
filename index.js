@@ -35,7 +35,7 @@ require('./routes/billingRoutes')(app);
 if (process.env.NODE_ENV === 'production') {
   // Express will sever production assets
   // such as main.js or main.css
-  app.user(express.static('client/build'));
+  app.use(express.static('client/build'));
   // Express will sever the index.html file
   // if it donest recognize the route
   const path = require('path');
