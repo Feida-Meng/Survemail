@@ -29,6 +29,7 @@ app.use(passport.session());
 
 require('./routes/authRoutes')(app);
 require('./routes/billingRoutes')(app);
+require('./routes/surveyRoutes')(app);
 // above is same as:
 //const authRoutes = require('.routes/authRoutes');
 //authRoutes(app)
