@@ -25,7 +25,7 @@ class Header extends Component {
   }
 
   render() {
-    console.log(this.props);
+
     return (
       <nav>
         <div className='nav-wrapper #fb8c00 orange darken-1'>

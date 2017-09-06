@@ -7,7 +7,11 @@ const surveyTemplate = require('../services/emailTemplate/surveyTemplate');
 
 module.exports = app => {
 
-  app.post('/api/survey', requireLogin, requireCredit, async (req, res) => {
+  app.get('/api/surveys/acknowledge', (req, res) => {
+    res.send('Thank you for taking the survey');
+  });
+
+  app.post('/api/surveys', requireLogin, requireCredit, async (req, res) => {
     const {title, subject, body, recipients} = req.body;
     const survey = new Survey({
       title,
