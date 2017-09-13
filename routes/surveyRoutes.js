@@ -12,16 +12,29 @@ const surveyTemplate = require('../services/emailTemplate/surveyTemplate');
 module.exports = app => {
 
   app.post('/api/surveys/webhooks',(req, res) => {
-    console.log('req',req);
+
     const p = new Path('/api/surveys/:surveyId/:choice/acknowledge');
 
-    const events = _.chain(req.body).map(event => {
-      if ( p.test(new URL(event.url).pathname) ) {
-        return {choice: match.choice, surveyId: match.surveyId, email: event.email};
+    _.chain(req.body).map(event => {
+      const match = p.test(new URL(event.url).pathname);
+      if ( match ) {
+        return {choice: match.choice, surveyId: match.surveyId, email: event.email, timeResponded: event.timestamp};
       }
     })
     .compact()
-    .uniqBy('surveyId')
+    .uniqBy('email','surveyId')
+    .each(({choice, surveyId, email, timeResponded}) => {
+
+      Survey.updateOne({
+        _id: surveyId,
+        recipients: {
+          $elemMatch: {email: email, responded: false}
+        }
+      }, {
+        $inc: {[choice]: 1},
+        $set: { 'recipients.$.responded': true, 'recipients.$.response': choice, 'recipients.$.timeResponded': timeResponded}
+      }).exec();
+    })
     .value();
 
   });
