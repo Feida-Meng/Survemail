@@ -11,6 +11,16 @@ const surveyTemplate = require('../services/emailTemplate/surveyTemplate');
 // _.mapValues({ 'a': 1, 'b': 2, 'c': 3} , function(num) { return num * 3; });
 module.exports = app => {
 
+  app.get('/api/surveys', requireLogin, async (req, res) => {
+    console.log('userId',req.user.id);
+    const surveys = await Survey.find({ _userID: req.user.id }).select({
+      recipients: false
+    });
+
+    console.log('surveys', surveys);
+    res.send(surveys);
+  })
+
   app.post('/api/surveys/webhooks',(req, res) => {
 
     const p = new Path('/api/surveys/:surveyId/:choice/acknowledge');
@@ -53,7 +63,7 @@ module.exports = app => {
 
     try {
       //create email
-      const mailer = new Mailer(survey,surveyTemplate(survey));
+      const mailer = new Mailer(survey, surveyTemplate(survey));
       // Send email
       await mailer.send();
       await survey.save();
