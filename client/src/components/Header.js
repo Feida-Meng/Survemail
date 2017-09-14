@@ -17,7 +17,7 @@ class Header extends Component {
         );
       default:
         return [
-          <li key='payments'> <Payments /> </li>,
+          <li className="payment" key='payments'> <Payments /> </li>,
           <li key='creadits'> Credits: {this.props.auth.credits} </li>,
           <li key='logout'><a href='/api/logout'> Logout</a></li>
         ];
@@ -29,9 +29,11 @@ class Header extends Component {
     return (
       <nav>
         <div className='nav-wrapper #fb8c00 orange darken-1'>
+
           <Link
             to={this.props.auth ? '/surveys' : '/'}
-            className='left brand-logo'
+            className='brand-logo'
+            style={{ marginLeft: '15px' }}
           >
             Survemail
           </Link>

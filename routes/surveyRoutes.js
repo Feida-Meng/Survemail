@@ -12,12 +12,10 @@ const surveyTemplate = require('../services/emailTemplate/surveyTemplate');
 module.exports = app => {
 
   app.get('/api/surveys', requireLogin, async (req, res) => {
-    console.log('userId',req.user.id);
     const surveys = await Survey.find({ _userID: req.user.id }).select({
       recipients: false
     });
 
-    console.log('surveys', surveys);
     res.send(surveys);
   })
 
@@ -58,7 +56,7 @@ module.exports = app => {
       body,
       recipients: recipients.split(',').map(email => ({email: email.trim()})),
       _userID: req.user.id,
-      dataSend: Date.now()
+      dateSend: Date.now()
     });
 
     try {
