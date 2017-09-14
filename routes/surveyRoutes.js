@@ -20,9 +20,9 @@ module.exports = app => {
   })
 
   app.post('/api/surveys/webhooks',(req, res) => {
-    console.log(req.body);
+
     const p = new Path('/api/surveys/:surveyId/:choice/acknowledge');
-    
+
     _.chain(req.body).map(event => {
       const match = p.test(new URL(event.url).pathname);
       if ( match ) {
@@ -44,6 +44,8 @@ module.exports = app => {
       }).exec();
     })
     .value();
+
+    res.status(200).send();
 
   });
 
