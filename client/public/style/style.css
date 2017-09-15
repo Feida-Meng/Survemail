@@ -1,8 +1,43 @@
-.nav-logo {
-  padding-left: 15px;
+body {
+  display: flex;
+  /*align-content: center;*/
+  justify-content: center;
+  width: 100%;
+}
+
+#root{
+  min-width:75%;
+
+
+}
+.react {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  flex-direction: column;
+  /*justify-content: center;*/
 
 }
 
+.nav-logo {
+  padding-left: 15px;
+  /*align-self: center;*/
+  margin: auto;
+
+}
+
+.landing {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.survey-list {
+  margin-top: 7px; 
+
+}
 
 .survey-input {
   font-size: 18px;
@@ -15,4 +50,15 @@
 
 .payment {
   margin-right: 20px;
+}
+
+.footer {
+  display:flex;
+  margin-top: auto;
+  height: 64px;
+  background-color: #fb8c00;
+  color: white;
+  justify-content: center;
+  align-items: center;
+
 }

@@ -6,7 +6,7 @@ const Dashboard = () => {
 
 
   return (
-    <div>
+    <div className='survey-list'>
       <SurveyList />
       <div className="fixed-action-btn">
         <Link className="btn-floating btn-large red" to='/surveys/new' >
